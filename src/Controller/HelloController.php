@@ -19,6 +19,14 @@ class HelloController extends AbstractController
         return $response;
     }
 
+    public function hello2()
+    {
+        $reponse = new Response('<body><h1>Wesh tout le monde ! </h1></body>');
+        dump($reponse);
+        return $reponse;
+
+    }
+
     public function convert(int $kilometers)
     {
         $miles = $kilometers / self::KILOMETERS_PER_MILES;
