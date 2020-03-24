@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock title %}
+
+{% block body %}
+
+    <ul>
+        <li>{{ board_game.id }} {{ board_game.name }}</li>
+        <li>A partir de : {{ board_game.ageGroup }}</li>
+        <li>{{ board_game.description }}</li>
+        <li>Sorti le : {{ board_game.releasedAt|date('d/m/Y') }}</li>
+    </ul>
+
+    <p><a href="{{ path('board_game_index') }}">retour à la liste de jeux</a></p>
+
+{% endblock body %}
+
+
+
