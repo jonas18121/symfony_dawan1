@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Hello AnnotationController ! {% endblock %}
+
+{% block body %}
+
+    <h1>Hello {{ annotation }}</h1>
+
+    <p> Les 3 syntaxes</p>
+    <ul>
+        <li> Instructions {{ '{%  %}' }}</li>
+        <li> Interpolations {{ '{{  }}' }}</li>
+        <li> Commentaires {{ '{#  #}' }}</li>
+    </ul>
+
+{% endblock body %}
