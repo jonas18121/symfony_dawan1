@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\Entity\BoardGame;
 use App\Repository\BoardGameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,8 +25,32 @@ class BoardGameController extends AbstractController
     public function index(BoardGameRepository $repository)
     {
         $boardGames = $repository->findAll();
+
         return $this->render('board_game/index.html.twig', [
             'board_games' => $boardGames,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}",
+     *     methods="GET",
+     *     name="board_game_show",
+     *     requirements={
+                "id" = "\d+"
+     *     }
+     * )
+     *
+     */
+    public function show(BoardGame $boardGame)
+    {
+        /*
+         composant ParamConverter est capable de traduire un paramètre en route
+            -Entité
+            -\DateTime
+         */
+
+        return $this->render('board_game/show.html.twig', [
+            'board_game' => $boardGame,
         ]);
     }
 
@@ -37,6 +62,7 @@ class BoardGameController extends AbstractController
                 "id" = "\d+"
      *     })
      */
+    /*
     public function show(int $id, BoardGameRepository $repository)
     {
         $boarGame = $repository->find($id);
@@ -49,4 +75,5 @@ class BoardGameController extends AbstractController
             'board_game' => $boarGame,
         ]);
     }
+    */
 }
