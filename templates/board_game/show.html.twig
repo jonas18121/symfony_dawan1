@@ -13,6 +13,7 @@
         <li>Sortie le : {{ board_game.releasedAt|date('d/m/Y') }}</li>
     </ul>
 
+    <p><a href="{{ path('board_game_edit', { 'id' : board_game.id } ) }}">Modifier le jeux : {{ board_game.name  }} </a></p>
     <p><a href="{{ path('board_game_index') }}">Retour à la liste de jeux</a></p>
 
 {% endblock body %}

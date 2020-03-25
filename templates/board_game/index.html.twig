@@ -5,6 +5,7 @@
 {% block body %}
 
     <h1>Liste des jeux de société</h1>
+    <p><a href="{{ path('board_game_add') }}">Créer un nouveau jeux</a></p>
     <ul>
         {% for board_game in board_games %}
 
