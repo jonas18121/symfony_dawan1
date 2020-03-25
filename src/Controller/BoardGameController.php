@@ -38,30 +38,59 @@ class BoardGameController extends AbstractController
 
     /**
     * @Route("/new",
-     *  methods={"GET", "POST"}
+     *      methods={"GET", "POST"},
+     *      name="board_game_add"
      *)
+     *
+     * @Route("/{id}/edit",
+     *      methods={"GET", "PUT"},
+     *      name="board_game_edit"
+     * )
      */
-    public function new(Request $request, EntityManagerInterface $manager)
+    public function form(Request $request, EntityManagerInterface $manager, BoardGame $game = null)
     {
-        $game = new BoardGame();
+        if(!$game){
 
-        $form = $this->createFormBuilder($game)
-            ->add('name', null, [
-                'label' => 'Nom : '
+            $game = new BoardGame();
+
+            $form = $this->createFormBuilder($game)
+                ->add('name', null, [
+                    'label' => 'Nom : '
+                ])
+                ->add('description', null, [
+                    'label' => 'Description : '
+                ])
+                ->add('releasedAt', DateType::class, [
+                    'html5' => true,
+                    'widget' => 'single_text',
+                    'label' => 'Date de sortie : '
+                ])
+                ->add('ageGroup', null, [
+                    'label' => 'A patir de : '
+                ])
+                ->getForm()
+            ;
+        }else {
+
+            $form = $this->createFormBuilder($game, [
+                'methods' => "PUT"
             ])
-            ->add('description', null, [
-                'label' => 'Description : '
-            ])
-            ->add('releasedAt', DateType::class, [
-                'html5' => true,
-                'widget' => 'single_text',
-                'label' => 'Date de sortie : '
-            ])
-            ->add('ageGroup', null, [
-                'label' => 'A patir de : '
-            ])
-            ->getForm()
-        ;
+                ->add('name', null, [
+                    'label' => 'Nom : '
+                ])
+                ->add('description', null, [
+                    'label' => 'Description : '
+                ])
+                ->add('releasedAt', DateType::class, [
+                    'html5' => true,
+                    'widget' => 'single_text',
+                    'label' => 'Date de sortie : '
+                ])
+                ->add('ageGroup', null, [
+                    'label' => 'A patir de : '
+                ])
+                ->getForm();
+        }
 
         $form->handleRequest($request);
 
@@ -77,8 +106,9 @@ class BoardGameController extends AbstractController
             ]);
         }
 
-        return $this->render('board_game/new.html.twig', [
+        return $this->render('board_game/form.html.twig', [
             'new_form' => $form->createView(),
+            'board_game' => $game
         ]);
     }
 

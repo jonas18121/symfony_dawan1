@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock title %}
+
+{% block body %}
+
+    <h1>
+        {% if board_game.id == null %}
+            Nouveau jeu de société
+        {% elseif board_game.id != null %}
+            Modifier jeu de société
+        {% endif %}
+    </h1>
+
+    {{ form_start(new_form) }}
+
+    {{ form_widget(new_form) }}
+
+    {% if board_game.id == null %}
+        <button>Ajouter</button>
+    {% elseif board_game.id != null %}
+        <button>Modifier</button>
+    {% endif %}
+    {{ form_end(new_form) }}
+
+{% endblock body %}
+
+
