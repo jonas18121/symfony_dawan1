@@ -5,6 +5,7 @@ namespace App\Controller;
 
 
 use App\Entity\BoardGame;
+use App\Form\BoardGameType;
 use App\Repository\BoardGameRepository;
 //use Doctrine\DBAL\Types\DateType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -49,47 +50,15 @@ class BoardGameController extends AbstractController
      */
     public function form(Request $request, EntityManagerInterface $manager, BoardGame $game = null)
     {
-        if(!$game){
-
+        if(!$game)
+        {
             $game = new BoardGame();
-
-            $form = $this->createFormBuilder($game)
-                ->add('name', null, [
-                    'label' => 'Nom : '
-                ])
-                ->add('description', null, [
-                    'label' => 'Description : '
-                ])
-                ->add('releasedAt', DateType::class, [
-                    'html5' => true,
-                    'widget' => 'single_text',
-                    'label' => 'Date de sortie : '
-                ])
-                ->add('ageGroup', null, [
-                    'label' => 'A patir de : '
-                ])
-                ->getForm()
-            ;
-        }else {
-
-            $form = $this->createFormBuilder($game, [
-                'methods' => "PUT"
-            ])
-                ->add('name', null, [
-                    'label' => 'Nom : '
-                ])
-                ->add('description', null, [
-                    'label' => 'Description : '
-                ])
-                ->add('releasedAt', DateType::class, [
-                    'html5' => true,
-                    'widget' => 'single_text',
-                    'label' => 'Date de sortie : '
-                ])
-                ->add('ageGroup', null, [
-                    'label' => 'A patir de : '
-                ])
-                ->getForm();
+            $form = $this->createForm( BoardGameType::class, $game);
+        }
+        else {
+            $form = $this->createForm(BoardGameType::class, $game, [
+                'method' => "PUT"
+            ]);
         }
 
         $form->handleRequest($request);
