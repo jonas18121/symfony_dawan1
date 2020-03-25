@@ -47,4 +47,27 @@ class BoardGameRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findWithCategories()
+    {
+        return $this->createQueryBuilder('b')
+                ->leftJoin('b.categories', 'c')
+                ->addSelect('c')
+                ->orderBy('b.releasedAt', 'DESC')
+                ->setMaxResults(50)
+                ->getQuery()
+                ->getResult()
+            ;
+    }
+
+    //requete sous format DQL
+    public function findWithCategoriesBis()
+    {
+        return $this->getEntityManager()->createQuery(
+            'SELECT b, c FROM ' . BoardGame::class. ' b ' .
+            'LEFT JOIN b.categories c ' .
+            'ORDER BY b.releasedAt DESC'
+        )->setMaxResults(50)
+        ->getResult();
+    }
 }

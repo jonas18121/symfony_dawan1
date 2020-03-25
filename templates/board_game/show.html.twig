@@ -11,6 +11,11 @@
         <li>A partir de : {{ board_game.ageGroup }}</li>
         <li>{{ board_game.description }}</li>
         <li>Sortie le : {{ board_game.releasedAt|date('d/m/Y') }}</li>
+        <li>
+            {% for category in board_game.categories %}
+                {{ category.name }} {{ loop.last ? '' : ', ' }}
+            {% endfor %}
+        </li>
     </ul>
 
     <p><a href="{{ path('board_game_edit', { 'id' : board_game.id } ) }}">Modifier le jeux : {{ board_game.name  }} </a></p>

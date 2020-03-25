@@ -29,7 +29,8 @@ class BoardGameController extends AbstractController
      */
     public function index(BoardGameRepository $repository)
     {
-        $boardGames = $repository->findAll();
+        //$boardGames = $repository->findAll();
+        $boardGames = $repository->findWithCategoriesBis();
 
         return $this->render('board_game/index.html.twig', [
             'board_games' => $boardGames,
@@ -60,7 +61,6 @@ class BoardGameController extends AbstractController
                 'method' => "PUT"
             ]);
         }
-
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())

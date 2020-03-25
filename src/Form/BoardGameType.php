@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\BoardGame;
+use App\Entity\Category;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -34,13 +36,21 @@ class BoardGameType extends AbstractType
                     'min' => 0,
                 ]
             ])
+            ->add('categories', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'label' => 'Categories',
+                'required' => false,
+
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => BoardGame::class,
+            'data_class' => BoardGame::class
         ]);
     }
 }
